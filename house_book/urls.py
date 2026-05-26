@@ -29,8 +29,8 @@ urlpatterns = [
     path('api/books/', include('books.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Demo media serving. For a real production app, use Cloudinary/S3/Supabase Storage.
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     re_path(r'^(?P<path>.*)$', frontend_app),

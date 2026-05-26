@@ -42,9 +42,8 @@ INSTALLED_APPS = [
 # MIDDLEWARE
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-
     "corsheaders.middleware.CorsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -58,18 +57,21 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+    "https://book-house-frontend-k52i.vercel.app",
+]
 
-    # add your Vercel frontend later, example:
-    # "https://book-house.vercel.app",
+# Allow Vercel preview URLs too, for example:
+# https://book-house-frontend-git-main-username.vercel.app
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
     "https://*.onrender.com",
-
-    # add your Vercel frontend later, example:
-    # "https://book-house.vercel.app",
+    "https://*.vercel.app",
+    "https://book-house-frontend-k52i.vercel.app",
 ]
 
 ROOT_URLCONF = "house_book.urls"
