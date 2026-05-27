@@ -3,6 +3,7 @@ Django settings for the integrated Book House project.
 """
 
 import os
+import cloudinary
 import dj_database_url
 from datetime import timedelta
 from pathlib import Path
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
 
     "corsheaders",
     "rest_framework",
+    "cloudinary",
 
     "accounts",
     "books",
@@ -132,3 +134,19 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
+
+# Cloudinary config
+CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")
+CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
+CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET,
+    secure=True,
+)
+
+# Optional: allow bigger uploads
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
