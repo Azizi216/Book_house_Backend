@@ -23,3 +23,18 @@ class BookSerializer(serializers.ModelSerializer):
             "pages",
             "description",
         ]
+
+    def create(self, validated_data):
+        validated_data.pop("image_file", None)
+        validated_data.pop("pdf_file", None)
+        return Book.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        validated_data.pop("image_file", None)
+        validated_data.pop("pdf_file", None)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance
