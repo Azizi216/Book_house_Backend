@@ -10,6 +10,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-insecure-dev-book-house-change-this-in-production"
@@ -24,6 +25,7 @@ ALLOWED_HOSTS = [
     "book-house-backend-1.onrender.com",
 ]
 
+# APPS
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     "books",
 ]
 
+# MIDDLEWARE
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 
@@ -54,10 +57,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# CORS / CSRF
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
 
+    "https://book-house-frontend.vercel.app",
     "https://book-house-frontend-k52i.vercel.app",
     "https://book-house-frontend-gipg.vercel.app",
 ]
@@ -70,6 +75,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
 
+    "https://book-house-frontend.vercel.app",
     "https://book-house-frontend-k52i.vercel.app",
     "https://book-house-frontend-gipg.vercel.app",
     "https://*.vercel.app",
@@ -95,6 +101,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "house_book.wsgi.application"
 
+# DATABASE
 DATABASES = {
     "default": dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -102,6 +109,7 @@ DATABASES = {
     )
 }
 
+# PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -109,11 +117,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+# LANGUAGE / TIME
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
+# STATIC / MEDIA
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -124,18 +134,20 @@ FRONTEND_DIST = BASE_DIR / "frontend_dist"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# DRF
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
 
+# JWT
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-# Cloudinary config
+# CLOUDINARY
 CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")
 CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
 CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
@@ -147,6 +159,6 @@ cloudinary.config(
     secure=True,
 )
 
-# Optional: allow bigger uploads
+# UPLOAD LIMITS
 DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
